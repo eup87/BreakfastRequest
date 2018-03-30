@@ -1,12 +1,11 @@
-/*eslint linebreak-style: ["error", "unix"]*/
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"jerrylist/model/models"
+	"ZIProfile/model/models"
 ], function(UIComponent, Device, models) {
 	"use strict";
 
-	return UIComponent.extend("jerrylist.Component", {
+	return UIComponent.extend("ZIProfile.Component", {
 
 		metadata: {
 			manifest: "json"
@@ -18,11 +17,18 @@ sap.ui.define([
 		 * @override
 		 */
 		init: function() {
+			// call the base component's init function
 			UIComponent.prototype.init.apply(this, arguments);
 
+			// enable routing
+			var oRouter = this.getRouter();
+			if (oRouter) {
+				oRouter.initialize();
+			}
+
+			// set the device model
 			this.setModel(models.createDeviceModel(), "device");
-			var oModel = new sap.ui.model.json.JSONModel(jQuery.sap.getModulePath("jerrylist.model","/mock.json"));
-			this.setModel(oModel);
 		}
 	});
+
 });
